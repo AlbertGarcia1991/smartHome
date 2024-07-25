@@ -1,0 +1,15 @@
+{
+    "cmake.sourceDirectory": "/home/albertgp/Desktop/PROJECTS/smartHouse",
+    "files.associations": {
+        "*.ejs": "html",
+        "stdio.h": "c",
+        "driverlib.h": "c",
+        "eusci_b_i2c.h": "c",
+        "hw_memmap.h": "c",
+        "led.h": "c",
+        "msp430.h": "c"
+    },
+    "python.terminal.activateEnvironment": false,
+    "python.terminal.activateEnvInCurrentTerminal": false,
+    "makefile.makefilePath": "src/Makefile",
+}
