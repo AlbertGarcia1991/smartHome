@@ -35,6 +35,3 @@
 .vscode
 
 build/
-
-# External libraries will be linked as git submodules or wget instead of tracking them here
-external/
