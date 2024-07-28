@@ -10,12 +10,6 @@ jobs:
               uses:
                 actions/checkout@v3
             - run:
-<<<<<<< HEAD
-                TOOLS_PATH=/home/ubuntu/dev_tools/ make
+                TOOLS_PATH=/home/ubuntu/dev_tools make
             - run:
-                TOOLS_PATH=/home/ubuntu/dev_tools/ make cppcheck
-=======
-                TOOLS_PATH=/home/ubuntu/dev_tools/msp430-gcc make
-            - run:
-                TOOLS_PATH=/home/ubuntu/dev_tools/msp430-gcc make cppcheck
->>>>>>> 0bafd2e65de421e22c3444cb6aa731006104d744
+                TOOLS_PATH=/home/ubuntu/dev_tools make cppcheck
