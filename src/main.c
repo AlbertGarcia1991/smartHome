@@ -1,19 +1,5 @@
-#ifndef __MSP430G2553__
-#define __MSP430G2553__
-#endif
-
-#include <msp430.h>
-#include "led.h"
-
 int main(void)
 {
-    volatile unsigned int i;
-    WDTCTL = WDTPW + WDTHOLD; // Stop watchdog timer
-    led_init();
-
-    while(1)
-    {
-        led_toggle();
-        for (i=10000; i>0; i--);
-    }
+    const int arr[5] = {0};
+	return arr[4];
 }
