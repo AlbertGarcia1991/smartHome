@@ -18,6 +18,22 @@ CLANG_FMT = clang-format-12
 LIB_DIRS = $(MSPGCC_INCLUDE_DIR)
 INCLUDE_DIRS = $(MSPGCC_INCLUDE_DIR) ./src ./external ./external/printf
 
+# Static Analysis
+## Don't check the msp430 helper headers (they have a LOT of ifdefs)
+CPPCHECK_INCLUDES = ./src ./
+IGNORE_FILES_FORMAT_CPPCHECK = \
+	external/printf/printf.h \
+	external/printf/printf.c
+SOURCES_FORMAT_CPPCHECK = $(filter-out $(IGNORE_FILES_FORMAT_CPPCHECK),$(SOURCES))
+HEADERS_FORMAT = $(filter-out $(IGNORE_FILES_FORMAT_CPPCHECK),$(HEADERS))
+CPPCHECK_FLAGS = \
+	--quiet --enable=all --error-exitcode=1 \
+	--inline-suppr \
+	--suppress=missingIncludeSystem \
+	--suppress=unmatchedSuppression \
+	--suppress=unusedFunction \
+	$(addprefix -I,$(CPPCHECK_INCLUDES)) \
+
 # Toolchain
 CC = $(MSPGCC_BIN_DIR)/msp430-elf-gcc
 DEBUG = LD_LIBRARY_PATH=$(DEBUG_DRIVERS_DIR) $(DEBUG_BIN_DIR)/mspdebug
@@ -72,8 +88,8 @@ flash: $(TARGET)
 
 ## CppCheck
 cppcheck:
-	$(CPPCHECK) --quiet --enable=all --error-exitcode=1 --inline-suppr -i external src
+	@$(CPPCHECK) $(CPPCHECK_FLAGS) $(SOURCES_FORMAT_CPPCHECK)
 
 ## Clang C/C++ code formater
 format:
-	@$(CLANG_FMT) -i $(SOURCES)
+	@$(CLANG_FMT) -i $(SOURCES_FORMAT_CPPCHECK) $(HEADERS_FORMAT)
