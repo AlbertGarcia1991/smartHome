@@ -13,7 +13,8 @@ BIN_DIR = $(BUILD_DIR)/bin
 TI_CSS_DIR = $(DEV_TOOLS_DIR)/ccs1271/ccs/ccs_base/DebugServer
 DEBUG_BIN_DIR = $(TI_CSS_DIR)/bin
 DEBUG_DRIVERS_DIR = $(TI_CSS_DIR)/drivers
-
+CPPCHECK = cppcheck
+CLANG_FMT = clang-format-12
 LIB_DIRS = $(MSPGCC_INCLUDE_DIR)
 INCLUDE_DIRS = $(MSPGCC_INCLUDE_DIR) ./src ./external ./external/printf
 
@@ -54,7 +55,7 @@ $(OBJ_DIR)/%.o: %.c
 # $@ -> Target(s)
 
 # Phonies
-.PHONY: all clean flash cppcheck
+.PHONY: all clean flash cppcheck format
 
 ## Build all
 all: $(TARGET)
@@ -69,7 +70,10 @@ flash: $(TARGET)
 	$(DEBUG) tilib "prog $(TARGET)"
 	@echo "Flashing..."
 
-CPPCHECK = cppcheck
 ## CppCheck
 cppcheck:
 	$(CPPCHECK) --quiet --enable=all --error-exitcode=1 --inline-suppr -i external src
+
+## Clang C/C++ code formater
+format:
+	@$(CLANG_FMT) -i $(SOURCES)
