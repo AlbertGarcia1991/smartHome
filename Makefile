@@ -72,4 +72,4 @@ flash: $(TARGET)
 CPPCHECK = cppcheck
 ## CppCheck
 cppcheck:
-	$(CPPCHECK) --quiet --enable=all --error-exitcode=1 --inline-suppr -I $(INCLUDE_DIRS) $(SOURCES) -i external/
+	$(CPPCHECK) --quiet --enable=all --error-exitcode=1 --inline-suppr -i external src
